@@ -8,9 +8,12 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 /**
  * Created by Pradip
  */
+//browser selector class extends with base page class
 public class BrowserSelector extends BasePage {
+    //variable project path define to get property
     String projectPath = System.getProperty("user.dir");
 
+    //below code select browser using nested if else concept
     public void selectBrowser(String browser) {
         if (browser.equalsIgnoreCase("chrome")) {
             System.setProperty("webdriver.chrome.driver", projectPath + "/drivers/chromedriver.exe");

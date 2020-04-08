@@ -2,100 +2,156 @@ package com.learn.letskodeit.utility;
 
 import com.learn.letskodeit.basepage.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Random;
+import java.util.List;
 
 /**
  * Created by Pradip
  */
+//utility class extends with base page class
 public class Utility extends BasePage {
+    /**
+     * This method will generate random number
+     */
+    public int generateRandomNumber() {
+        return (int) (Math.random() * 5000 + 1);
+    }
 
-    //two variable
-    public static String sameEmail;
-    public static String samePassword;
-
-    //this method need to use when we want to click on any elements
+    /**
+     * This method will click on element
+     */
     public void clickOnElement(By by) {
         driver.findElement(by).click();
     }
 
-    //this method need to use when we want to send any data in any field
-    public void sendTextToElement(By by, String text) {
-        driver.findElement(by).sendKeys(text);
+    /**
+     * This method will click on element
+     */
+    public void clickOnElement(WebElement element) {
+        element.click();
     }
 
-    //this method need to use when we want to compare result expected and actual result
+    /**
+     * This method will return text from element
+     */
     public String getTextFromElement(By by) {
         return driver.findElement(by).getText();
     }
 
-    //this method need to use when we want to mouse hover on any element and click on that element
-    public void mouseHoverAndClick(By by) {
+    public String getTextFromElement(WebElement element) {
+        return element.getText();
+    }
+
+    /**
+     * This method will send text to element or field
+     */
+    public void sendTextToElement(By by, String str) {
+        driver.findElement(by).sendKeys(str);
+    }
+
+    public void sendTextToElement(WebElement element, String str) {
+        element.sendKeys(str);
+
+    }
+
+    /**
+     * This method will used to hover mouse on element
+     */
+    public void mouseHoverToElement(By by) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(by)).perform();
+    }
+
+    public void mouseHoverToElement(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
+    }
+
+    /**
+     * This method will used to hover mouse on element and click
+     */
+    public void mouseHoverToElementAndClick(By by) {
         Actions actions = new Actions(driver);
         actions.moveToElement(driver.findElement(by)).click().perform();
     }
 
-    //this method need to use when we want to mouse hover and perform on any element
-    public void mouseHoverOnElement(By by) {
+    public void mouseHoverToElementAndClick(WebElement element) {
         Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(by)).perform();
-
+        actions.moveToElement(element).click().perform();
     }
 
-    //this method need to use when we want to select by value from drop down elements
-    public void selectByValueForDropDownElement(By by, String value) {
+    /**
+     * This method will used to select drop down menu by visible text
+     */
+    public void selectByVisibleTextFromDropDown(By by, String str) {
         Select select = new Select(driver.findElement(by));
-        select.selectByValue(value);
+        select.selectByVisibleText(str);
     }
 
-    //this method need to use when we want to select by visible text from drop down elements
-    public void selectByVisibleTextForDropDownElement(By by, String text) {
-        Select select = new Select(driver.findElement(by));
-        select.selectByVisibleText(text);
-
+    public void selectByVisibleTextFromDropDown(WebElement element, String str) {
+        Select select = new Select(element);
+        select.selectByVisibleText(str);
     }
 
-    //this method need to use when we want to select by index from drop down elements
-    public void selectByIndexForDropDownElement(By by, int index) {
+    /**
+     * This method will used to select drop down menu by index
+     */
+    public void selectByIndexFromDropDown(By by, int index) {
         Select select = new Select(driver.findElement(by));
         select.selectByIndex(index);
     }
 
-    //this method need to use when we want to create random email and register in demo site
-    public void enterRandomEmail(By by) {
-        Random anyEmail = new Random();
-        int randomInt = anyEmail.nextInt(1000);
-        sameEmail = "DhannoBhag" + randomInt + "@gmail.com";
-        driver.findElement(by).sendKeys(sameEmail);
-
-
+    public void selectByIndexFromDropDown(WebElement element, int index) {
+        Select select = new Select(element);
+        select.selectByIndex(index);
     }
 
-    //this method we need to use when we want to use stored email id like above email stored
-    public void enterStoredEmailToNextField(By by, String str) {
-        str = sameEmail;
-        driver.findElement(by).sendKeys(str);
-
+    /**
+     * This method will used to select drop down menu by value
+     */
+    public void selectByValueFromDropDown(By by, String value) {
+        Select select = new Select(driver.findElement(by));
+        select.selectByValue(value);
     }
 
-    //this method we need to use when we want to enter random password many time
-    public void enterRandomPassword(By by) {
-        Random anyPassword = new Random();
-        int randomInt = anyPassword.nextInt(1000);
-        samePassword = "DhannoBhag" + randomInt;
-        driver.findElement(by).sendKeys(samePassword);
+    public void selectByValueFromDropDown(WebElement element, String value) {
+        Select select = new Select(element);
+        select.selectByValue(value);
     }
 
-    //this method we need to use to enter stored password like above password
-    public void enterStoredPasswordToNextField(By by, String pass) {
-        pass = samePassword;
-        driver.findElement(by).sendKeys(pass);
-
+    /**
+     * This method will used to wait web driver until element become clickable
+     */
+    public void waitUntilElementToBeClickable(By by, int timeout) {
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(by)));
     }
 
+    /**
+     * This method will used to wait web driver until presence of element located by locator
+     */
+    public void waitUntilPresenceOfElementLocated(By by, int timeout) {
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        wait.until(ExpectedConditions.presenceOfElementLocated(by));
+    }
+
+    /**
+     * This method will used to wait web driver until visibility of element located by locator
+     */
+    public void waitUntilVisibilityOfElementLocated(By by, int timeout) {
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
+    /**
+     * This method will verify that element is displayed
+     */
     public boolean verifyThatElementIsDisplayed(By by) {
         WebElement element = driver.findElement(by);
         if (element.isDisplayed()) {
@@ -123,8 +179,34 @@ public class Utility extends BasePage {
         } else {
             return false;
         }
+    }
 
+    public boolean verifyThatTextIsDisplayed(WebElement element, String text) {
+        if (text.equals(element.getText())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+    /**
+     * This method will returns list of web elements
+     */
+    public List<WebElement> webElementList(By by) {
+        return driver.findElements(by);
+    }
+
+    /**
+     * This method will generate random string
+     */
+    public static String getRandomString(int length) {
+        StringBuilder sb = new StringBuilder();
+        String characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        for (int i = 0; i < length; i++) {
+            int index = (int) (Math.random() * characters.length());
+            sb.append(characters.charAt(index));
+        }
+        return sb.toString();
     }
 }
 

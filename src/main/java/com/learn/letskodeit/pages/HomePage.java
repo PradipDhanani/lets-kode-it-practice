@@ -6,28 +6,28 @@ import org.openqa.selenium.By;
 /**
  * Created by Pradip
  */
-public class HomePage extends Utility {//homepage extends utility
-    By loginLink = By.partialLinkText("Login");
+//home page class extends utility class to use properties of utility class
+public class HomePage extends Utility {
+    //locators for each elements on home page
+
     By practiceLink = By.partialLinkText("Practi");
+
+    By loginLink = By.partialLinkText("Login");
+
     By signUpLink = By.id("header-sign-up-btn");
 
-     //clicking on login button
-    public void clickOnLogin(){
+    //below all methods for each elements and doing actions on that each elements
+    public void clickOnLogin() {
         clickOnElement(loginLink);
     }
-    //clicking on practice button
-    public void clickOnPracticeLink(){
+
+    public void clickOnPracticeLink() {
         clickOnElement(practiceLink);
     }
-    //clicking on sign up button
-    public void clickOnSignUpLink(){
+
+    public void clickOnSignUpLink() {
         clickOnElement(signUpLink);
     }
-    //login button is displayed or not in homepage
-    public void displayedLoginLink(){
-        verifyThatElementIsDisplayed(loginLink);
-    }
-
 
 
 }

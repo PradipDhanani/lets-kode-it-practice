@@ -11,12 +11,17 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Pradip
  */
+//test base class extends with base page class
 public class TestBase extends BasePage {
-    BrowserSelector browserSelector = new BrowserSelector();//object created
+    //object created for browser selector
+    BrowserSelector browserSelector = new BrowserSelector();
+    //string to define URL of website
     String baseUrl = "https://learn.letskodeit.com/";
-
+    //before method of testNG
     @BeforeMethod
+
     public void openBrowser() {
+        //browser opening
         browserSelector.selectBrowser("chrome");
        // driver.manage().window().setPosition(new Point(2000, 0));//display into second screen
         driver.manage().window().maximize();
@@ -24,8 +29,9 @@ public class TestBase extends BasePage {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(baseUrl);
     }
-
+    //after method of testNG
     @AfterMethod
+    //browser closing
     public void tearDown() {
         driver.quit();
 
